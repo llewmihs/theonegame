@@ -25,13 +25,17 @@ if p1ready == "Not Ready" and p2ready == "Not Ready":
 	aio.send("P1 Ready", "Ready")
 	playerscore = "P1 Score"
 	otherPlayerReady = "P2 Ready"
+	myPlayerReady = "P1 Ready"
 	otherPlayer = "P2"
+	myPlayer = "P1"
 else:
 	print "You are player 2"
 	aio.send("P2 Ready", "Ready")
 	playerscore = "P2 Score"
 	otherPlayerReady = "P1 Ready"
+	myPlayerReady = "P2 Ready"
 	otherPlayer = "P1"
+	myPlayer = "P2"
 
 
 #set P1 score to 0
@@ -47,10 +51,10 @@ try:
 #need some code that chooses who starts first
 	
 		while True:
-			if aio.receive("Turn").value == "P1":
+			if aio.receive("Turn").value != otherPlayer:
 				GPIO.output(12, False)
 				score = score + 1
-				aio.send("P1 Score", score)
+				aio.send(playerscore, score)
 				time.sleep(1)
 			else:
 				running = "True"
@@ -59,11 +63,11 @@ try:
 					if GPIO.input(11) == 0:
 						running = "False"
 						time.sleep(0.2)
-						print "Swap"
-				aio.send("Turn", "P1")
+						print myPlayer
+				aio.send("Turn", myPlayer)
 except KeyboardInterrupt:
 	print "Game Ended"
 
 finally:
 	GPIO.cleanup()
-	aio.send("P1 Ready", "Not Ready")
+	aio.send(myPlayerReady, "Not Ready")
