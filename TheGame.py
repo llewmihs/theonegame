@@ -16,16 +16,32 @@ GPIO.output(12, False)
 #import the time function
 import time              
 
-aio.send("P1 Ready", "Ready")
+#assigning player numbers
+p1ready = aio.receive("P1 Ready").value
+p2ready = aio.receive("P2 Ready").value
+
+if p1ready == "Not Ready" and p2ready == "Not Ready":
+	print "You are player 1"
+	aio.send("P1 Ready", "Ready")
+	playerscore = "P1 Score"
+	otherPlayerReady = "P2 Ready"
+	otherPlayer = "P2"
+else:
+	print "You are player 2"
+	aio.send("P2 Ready", "Ready")
+	playerscore = "P2 Score"
+	otherPlayerReady = "P1 Ready"
+	otherPlayer = "P1"
+
 
 #set P1 score to 0
 score = 0
-aio.send("P1 Score", score)
+aio.send(playerscore, score)
 
 try:
 	while True:
-		while aio.receive("P2 Ready").value == "Not Ready":
-			print "Player 2 not ready"
+		while aio.receive(otherPlayerReady).value == "Not Ready":
+			print "%s not ready" % otherPlayer
 			time.sleep(1)       
 	
 #need some code that chooses who starts first
