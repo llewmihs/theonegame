@@ -1,6 +1,8 @@
 #import Adafruit IO REST client
 from Adafruit_IO import Client
 config = {}
+
+#adjust this filename to suit the config file you have created in the same directory
 execfile("aio_config.py", config)
 aio = Client(config["app_key"])
 
