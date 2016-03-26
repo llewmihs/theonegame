@@ -52,7 +52,7 @@ try:
 	
 #need some code that chooses who starts first
 	
-		while True:
+		while aio.receive(otherPlayerReady).value == "Ready":
 			if aio.receive("Turn").value != otherPlayer:
 				GPIO.output(12, False)
 				score = score + 1
@@ -66,7 +66,9 @@ try:
 						running = "False"
 						time.sleep(0.2)
 				aio.send("Turn", myPlayer)
-
+		
+		print "Game interrupted, other player has quit"
+	
 except KeyboardInterrupt:
 	print "Game Ended"
 
