@@ -33,8 +33,8 @@ if p1ready == "Not Ready" and p2ready == "Not Ready":
 	myPlayerReady = "P1 Ready"
 	otherPlayer = "P2"
 	myPlayer = "P1"
-	p1rand = random.random(0, 1000000)
-	aio.send
+#	p1rand = random.random(0, 1000000)
+#	aio.send
 else:
 	print "You are player 2"
 	aio.send("P2 Ready", "Ready")
