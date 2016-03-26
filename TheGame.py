@@ -73,5 +73,8 @@ except KeyboardInterrupt:
 	print "Game Ended"
 
 finally:
+	print "GPIO Cleanup"
 	GPIO.cleanup()
+	print "Sending 'Not Ready' to AIO"
 	aio.send(myPlayerReady, "Not Ready")
+	print "Sending successful"
