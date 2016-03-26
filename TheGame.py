@@ -65,8 +65,8 @@ try:
 					if GPIO.input(11) == 0:
 						running = "False"
 						time.sleep(0.2)
-						print myPlayer
 				aio.send("Turn", myPlayer)
+
 except KeyboardInterrupt:
 	print "Game Ended"
 
