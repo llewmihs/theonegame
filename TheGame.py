@@ -18,6 +18,9 @@ GPIO.output(12, False)
 #import the time function
 import time              
 
+#import the random function
+import random
+
 #assigning player numbers
 p1ready = aio.receive("P1 Ready").value
 p2ready = aio.receive("P2 Ready").value
@@ -30,6 +33,8 @@ if p1ready == "Not Ready" and p2ready == "Not Ready":
 	myPlayerReady = "P1 Ready"
 	otherPlayer = "P2"
 	myPlayer = "P1"
+	p1rand = random.random(0, 1000000)
+	aio.send
 else:
 	print "You are player 2"
 	aio.send("P2 Ready", "Ready")
@@ -38,6 +43,7 @@ else:
 	myPlayerReady = "P2 Ready"
 	otherPlayer = "P1"
 	myPlayer = "P2"
+
 
 
 #set P1 score to 0
