@@ -33,9 +33,9 @@ if p1ready == "Not Ready" and p2ready == "Not Ready":
 	otherPlayer = "P2"
 	myPlayer = "P1"
 	print "rolling for start..."
-	rand = random.randint(0, 1000000)
+	rand = random.randint(0, 1)
         print rand
-	if rand < 500000:
+	if rand < 1:
 		print "P1 is in control"
 		aio.send("Turn", "P1")
 	else:
