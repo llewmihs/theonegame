@@ -88,4 +88,9 @@ finally:
 	GPIO.cleanup()
 	print "Sending 'Not Ready' to AIO"
 	aio.send(myPlayerReady, "Not Ready")
-	print "Sending successful"
+	time.sleep(1)
+	endcheck = aio.receive(myPlayerReady).value
+	if endcheck == "Not Ready":
+		print "Sending successful"
+	else:
+		print "Error"
