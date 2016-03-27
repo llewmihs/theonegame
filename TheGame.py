@@ -68,7 +68,9 @@ try:
 				GPIO.output(12, False)
 				score = score + 1
 				aio.send(playerscore, score)
+				print "Score = %s" % score
 				time.sleep(1)
+				
 			else:
 				running = "True"
 				GPIO.output(12, True)
