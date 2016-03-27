@@ -16,28 +16,28 @@ GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin 11 (GPIO 17) as an in
 import time              
 import random
 
-#receive the 'ready status of P1 and P2 from AIO
-p1ready = aio.receive("P1 Ready").value
+#receive the 'ready' status of P1 and P2 from AIO
+p1ready = aio.receive("P1 Ready").value 	# .value takes only the value from the aio
 p2ready = aio.receive("P2 Ready").value
 
 #check which computer got their first and sent various strings appropriate
-if p1ready == "Not Ready" and p2ready == "Not Ready":
+if p1ready == "Not Ready" and p2ready == "Not Ready":	#if bpth players aren't ready then this Pi is the first and becomes P1
 	print "You are player 1"
-	aio.send("P1 Ready", "Ready")
+	aio.send("P1 Ready", "Ready")			#let AIO that this Pi is now P1
 	playerscore = "P1 Score"
 	otherPlayerReady = "P2 Ready"
 	myPlayerReady = "P1 Ready"
 	otherPlayer = "P2"
 	myPlayer = "P1"
 	#P1 Pi is in control of the 'who starts' roll
-	rand = random.randint(0, 1)
-	if rand < 1:
+	rand = random.randint(0, 1)			#choose a random unmber either zero or one
+	if rand < 1:					# zero means p1 starts, 1 means p2
 		print "P1 is in control"
-		aio.send("Turn", "P1")
+		aio.send("Turn", "P1")			#make player 1 the starting player
 	else:
 		print "P2 is in control"
 		aio.send("Turn", "P2")
-else:
+else:							#let AIO know that this Pi is now P2
 	print "You are player 2"
 	aio.send("P2 Ready", "Ready")
 	playerscore = "P2 Score"
