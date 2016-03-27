@@ -32,8 +32,15 @@ if p1ready == "Not Ready" and p2ready == "Not Ready":
 	myPlayerReady = "P1 Ready"
 	otherPlayer = "P2"
 	myPlayer = "P1"
-	p1rand = random.randint(0, 1000000)
-        aio.send("P1Rand", p1rand)
+	print "rolling for start..."
+	rand = random.randint(0, 1000000)
+        print rand
+	if rand < 500000:
+		print "P1 is in control"
+		aio.send("Turn", "P1")
+	else:
+		print "P2 is in control"
+		aio.send("Turn", "P2")
 else:
 	print "You are player 2"
 	aio.send("P2 Ready", "Ready")
@@ -42,20 +49,11 @@ else:
 	myPlayerReady = "P2 Ready"
 	otherPlayer = "P1"
 	myPlayer = "P2"
-	p2rand = random.randint(0, 1000000)
-        aio.send("P2Rand", p2rand)
 
 
 #set P1 score to 0
 score = 0
 aio.send(playerscore, score)
-
-if aio.receive(P1Rand).value <= aio.receive(P2Rand).value:
-	aio.send("Turn", "P1")
-	print "Player 1 is in control"
-else:
-	aio.send("Turn", "P2")
-	print "Player 2 is in control"
 
 try:
 	while True:
