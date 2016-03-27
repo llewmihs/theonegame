@@ -10,20 +10,17 @@ aio = Client(config["app_key"])
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)        #set board numbering counting left to ri$
 GPIO.setup(12, GPIO.OUT)        #set pin 12 (GPIO OUT 18) as an 0utput
-GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin 11 (GPIO 17) as an input pullup
 
-#switch off the LED
-GPIO.output(12, False)
-
-#import the time function
+#import the time and random functions
 import time              
-
 import random
 
-#assigning player numbers
+#receive the 'ready status of P1 and P2 from AIO
 p1ready = aio.receive("P1 Ready").value
 p2ready = aio.receive("P2 Ready").value
 
+#check which computer got their first and sent various strings appropriate
 if p1ready == "Not Ready" and p2ready == "Not Ready":
 	print "You are player 1"
 	aio.send("P1 Ready", "Ready")
@@ -32,9 +29,8 @@ if p1ready == "Not Ready" and p2ready == "Not Ready":
 	myPlayerReady = "P1 Ready"
 	otherPlayer = "P2"
 	myPlayer = "P1"
-	print "rolling for start..."
+	#P1 Pi is in control of the 'who starts' roll
 	rand = random.randint(0, 1)
-        print rand
 	if rand < 1:
 		print "P1 is in control"
 		aio.send("Turn", "P1")
@@ -51,14 +47,17 @@ else:
 	myPlayer = "P2"
 
 
-#set P1 score to 0
+#set current players score to 0
 score = 0
 aio.send(playerscore, score)
 
 try:
 	while True:
+		check = 0
 		while aio.receive(otherPlayerReady).value == "Not Ready":
-			print "%s not ready" % otherPlayer
+			if check == 0:
+				print "%s not ready" % otherPlayer
+				check = 1
 			time.sleep(1)       
 	
 #need some code that chooses who starts first
