@@ -50,6 +50,13 @@ else:
 score = 0
 aio.send(playerscore, score)
 
+if aio.receive(p1rand).value <= aio.receive(p2rand).value:
+	aio.send("Turn", "P1")
+	print "Player 1 is in control"
+else:
+	aio.send("Turn", "P2")
+	print "Player 2 is in control"
+
 try:
 	while True:
 		while aio.receive(otherPlayerReady).value == "Not Ready":
