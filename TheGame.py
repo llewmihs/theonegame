@@ -50,7 +50,7 @@ else:
 score = 0
 aio.send(playerscore, score)
 
-if aio.receive(p1rand).value <= aio.receive(p2rand).value:
+if aio.receive(P1Rand).value <= aio.receive(P2Rand).value:
 	aio.send("Turn", "P1")
 	print "Player 1 is in control"
 else:
