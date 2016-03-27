@@ -81,7 +81,17 @@ try:
 				aio.send("Turn", myPlayer)
 		
 		print "Game interrupted, other player has quit"
-	
+		p1finalscore = aio.receive("P1 Score").value
+		p2finalscore = aio.receive("P2 Score").value
+		print "P1 final score is %s" % p1finalscore
+		print "P2 final score is %s" % p2finalscore
+		if p1finalscore >= p2finalscore:
+			print "P1 is the winner"
+		else:
+			print "P2 is the winner"		
+
+
+		
 except KeyboardInterrupt:
 	print "Game Ended"
 
